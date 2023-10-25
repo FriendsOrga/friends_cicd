@@ -1,0 +1,29 @@
+on: pull_request
+name: ":dart: Dart CI"
+
+jobs:
+  build:
+    name: ":simple-flutter: Flutter pub get, format, analyze, and test"
+    runs-on: ubuntu-latest
+
+    env:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ env.FLUTTER_VERSION }}
+        channel: 'stable'
+
+    - name: Show Flutter Version
+      run: flutter --version
+
+    - name: Install Dependencies
+      run: flutter pub get  
+
+    - name: Dart format, analyze, and test
+      run: |
+        dart format --set-exit-if-changed .
+        flutter analyze
+        flutter test

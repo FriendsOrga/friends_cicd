@@ -1,0 +1,20 @@
+on: pull_request
+name: ":octicons-git-branch-24: Control branch name"
+
+jobs:
+  build:
+    name: ":octicons-git-branch-24: Control branch name"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v6
+      - name: Control branch name
+        run: |
+          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
+          if [[ "${{ steps.branch-name.outputs.current_branch }}" == fix/* || "${{ steps.branch-name.outputs.current_branch }}" == feat/* || "${{ steps.branch-name.outputs.current_branch }}" == chore/* ]]; then
+            echo "✅ [OK] - Branch name is correct"
+          else
+            echo "❌ [FAIL] - Branch name is not correct"
+            exit 1
+          fi

@@ -1,0 +1,28 @@
+on: pull_request
+name: ":material-security: Flutter Security Checker"
+
+jobs:
+  security:
+    name: ":material-security: Check Flutter Security"
+    runs-on: ubuntu-latest
+
+    env:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v3
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Show Flutter Version
+        run: flutter --version    
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Run Flutter Security Checker
+        run: flutter pub global activate flutter_security_checker && flutter pub global run flutter_security_checker

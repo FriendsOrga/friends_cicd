@@ -1,0 +1,36 @@
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    
+name: ":label: Add labels to PRs"
+
+jobs:
+  add-label:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
+      pull-requests: write
+      repository-projects: read
+    name: ":label: Add or update labels to PRs"
+    steps:
+      - name: Check branch name and determine label
+        run: |
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          BRANCH_NAME="${{ github.head_ref }}"
+          if [[ $BRANCH_NAME == chore/* ]]; then
+            LABEL="chore :construction_worker_man:"
+          elif [[ $BRANCH_NAME == feat/* ]]; then
+            LABEL="enhancement :sparkles:"
+          elif [[ $BRANCH_NAME == fix/* ]]; then
+            LABEL="bug :bug:"
+          else
+            LABEL="other :question:"
+          fi
+          echo "Label to be added/updated: $LABEL"
+        id: set-label
+
+      - name: Add or Update Label
+        run: gh pr edit ${{ env.ISSUE }} --add-label "${{ steps.set-label.outputs.LABEL }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
