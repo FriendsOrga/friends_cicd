@@ -1,19 +1,28 @@
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+on: 
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN_USER:
+        required: true
     
-name: ":label: Add labels to PRs"
+name: 🏷️ Add or update labels to PRs
 
 jobs:
   add-label:
     runs-on: ubuntu-latest
+
+    env:
+      LABEL: ""
+
     permissions:
       packages: write
       contents: write
       pull-requests: write
       repository-projects: read
-    name: ":label: Add or update labels to PRs"
+
+    name: 🏷️ Add or update labels to PRs
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Check branch name and determine label
         run: |
           PR_URL="${{ github.event.pull_request.html_url }}"
@@ -28,9 +37,12 @@ jobs:
             LABEL="other :question:"
           fi
           echo "Label to be added/updated: $LABEL"
+          echo "LABEL=$LABEL" >> $GITHUB_ENV
         id: set-label
 
-      - name: Add or Update Label
-        run: gh pr edit ${{ env.ISSUE }} --add-label "${{ steps.set-label.outputs.LABEL }}"
+      - name: 🏷️ Add or Update Label
+        run: | 
+          gh pr edit ${{ github.event.pull_request.number }} --add-label "${{ env.LABEL }}"
+          gh pr comment ${{ github.event.pull_request.number }} --body "This PR has been labeled as ${{ env.LABEL }}"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_USER }}
