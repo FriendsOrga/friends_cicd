@@ -1,22 +1,27 @@
-on: pull_request
-name: ":material-security: Flutter Security Checker"
+on: 
+  workflow_call:
+    inputs:
+      FLUTTER_VERSION:
+        description: 'Flutter Version'
+        required: true
+        type: string
+        default: '3.17.0'
+
+name: 🔒 Flutter Security
 
 jobs:
   security:
-    name: ":material-security: Check Flutter Security"
+    name: 🔒 Flutter Security
     runs-on: ubuntu-latest
-
-    env:
-      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v3
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          flutter-version: ${{ inputs.FLUTTER_VERSION }}
 
       - name: Show Flutter Version
         run: flutter --version    

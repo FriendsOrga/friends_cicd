@@ -1,0 +1,33 @@
+on: 
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        description: 'Java version'
+        required: true
+        type: string
+        default: '11'
+
+name: 🍃 Kotlin Spring Boot CI/CD
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Kotlin
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: ${{ inputs.JAVA_VERSION }}
+
+      - name: Build and Test Spring Boot Application
+        run: |
+          ./mvnw clean install
+
+      - name: Run Tests
+        run: |
+          ./mvnw test

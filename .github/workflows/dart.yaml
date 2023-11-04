@@ -1,19 +1,24 @@
-on: pull_request
-name: ":dart: Dart CI"
+on: 
+  workflow_call:
+    inputs:
+      FLUTTER_VERSION:
+        description: 'Flutter Version'
+        required: true
+        type: string
+        default: '3.17.0'
+
+name: 🎯 Dart CI
 
 jobs:
   build:
-    name: ":simple-flutter: Flutter pub get, format, analyze, and test"
+    name: 🦋 Flutter
     runs-on: ubuntu-latest
-
-    env:
-      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
 
     steps:
     - uses: actions/checkout@v3
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: ${{ env.FLUTTER_VERSION }}
+        flutter-version: ${{ inputs.FLUTTER_VERSION }}
         channel: 'stable'
 
     - name: Show Flutter Version

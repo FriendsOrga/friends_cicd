@@ -1,9 +1,11 @@
-on: pull_request
-name: ":octicons-git-branch-24: Control branch name"
+on: 
+  workflow_call
+
+name: 🔎 Check branch name
 
 jobs:
   build:
-    name: ":octicons-git-branch-24: Control branch name"
+    name: 🔎 Check branch name
     runs-on: ubuntu-20.04
     steps:
       - name: Get branch name
