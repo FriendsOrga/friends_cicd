@@ -43,6 +43,5 @@ jobs:
       - name: 🏷️ Add or Update Label
         run: | 
           gh pr edit ${{ github.event.pull_request.number }} --add-label "${{ env.LABEL }}"
-          gh pr comment ${{ github.event.pull_request.number }} --body "This PR has been labeled as ${{ env.LABEL }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_USER }}
