@@ -33,6 +33,16 @@ jobs:
             LABEL="enhancement :sparkles:"
           elif [[ $BRANCH_NAME == fix/* ]]; then
             LABEL="bug :bug:"
+          elif [[ $BRANCH_NAME == hotfix/* ]]; then
+            LABEL="hotfix :fire:"
+          elif [[ $BRANCH_NAME == release/* ]]; then
+            LABEL="release :rocket:"
+          elif [[ $BRANCH_NAME == refactor/* ]]; then
+            LABEL="refactor :recycle:"
+          elif [[ $BRANCH_NAME == style/* ]]; then
+            LABEL="style :lipstick:"
+          elif [[ $BRANCH_NAME == test/* ]]; then
+            LABEL="test :rotating_light:"  
           else
             LABEL="other :question:"
           fi
