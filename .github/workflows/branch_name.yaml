@@ -14,7 +14,7 @@ jobs:
       - name: Control branch name
         run: |
           echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
-          if [[ "${{ steps.branch-name.outputs.current_branch }}" == fix/* || "${{ steps.branch-name.outputs.current_branch }}" == feat/* || "${{ steps.branch-name.outputs.current_branch }}" == chore/* || "${{ steps.branch-name.outputs.current_branch }}" == hotfix/* || "${{ steps.branch-name.outputs.current_branch }}" == release/* || "${{ steps.branch-name.outputs.current_branch }}" == refactor/* || "${{ steps.branch-name.outputs.current_branch }}" == style/* || "${{ steps.branch-name.outputs.current_branch }}" == test/* ]]; then
+          if [[ "${{ steps.branch-name.outputs.current_branch }}" == fix/* || "${{ steps.branch-name.outputs.current_branch }}" == feat/* || "${{ steps.branch-name.outputs.current_branch }}" == chore/* || "${{ steps.branch-name.outputs.current_branch }}" == hotfix/* || "${{ steps.branch-name.outputs.current_branch }}" == release/* || "${{ steps.branch-name.outputs.current_branch }}" == refactor/* || "${{ steps.branch-name.outputs.current_branch }}" == style/* || "${{ steps.branch-name.outputs.current_branch }}" == test/* || "${{ steps.branch-name.outputs.current_branch }}" == breaking/* ]]; then
             echo "✅ [OK] - Branch name is correct"
           else
             echo "❌ [FAIL] - Branch name is not correct"
