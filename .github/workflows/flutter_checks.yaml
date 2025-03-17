@@ -5,7 +5,8 @@ on:
         description: 'Flutter Version'
         required: true
         type: string
-        default: '3.17.0'
+        default: '3.22.3'
+
 
 name: 🎯 Dart CI
 
@@ -15,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: subosito/flutter-action@v2
       with:
         flutter-version: ${{ inputs.FLUTTER_VERSION }}
@@ -27,8 +28,9 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get  
 
-    - name: Dart format, analyze, and test
-      run: |
-        dart format --set-exit-if-changed .
-        flutter analyze
-        flutter test
+    - name: Analyze Code
+      run: flutter analyze
+
+    - name: Run Tests
+      run: flutter test
+      

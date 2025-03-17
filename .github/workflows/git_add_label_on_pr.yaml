@@ -22,7 +22,7 @@ jobs:
     name: 🏷️ Add or update labels to PRs
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check branch name and determine label
         run: |
           PR_URL="${{ github.event.pull_request.html_url }}"

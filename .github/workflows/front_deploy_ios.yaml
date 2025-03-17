@@ -1,0 +1,36 @@
+name: Flutter iOS CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build IPA
+        run: flutter build ios --release --no-codesign
+
+      - name: Deploy to Apple App Store
+        uses: appleboy/app-store-release-action@v0.2.0
+        with:
+          api_key: ${{ secrets.APP_STORE_API_KEY }}
+          api_issuer: ${{ secrets.APP_STORE_API_ISSUER }}
+          app_identifier: com.example.app
+          ipa_path: build/ios/ipa/app.ipa

@@ -5,7 +5,7 @@ on:
         description: 'Java version'
         required: true
         type: string
-        default: '11'
+        default: '17'
 
 name: 🍃 Kotlin Spring Boot CI/CD
 
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Kotlin
         uses: actions/setup-java@v3
