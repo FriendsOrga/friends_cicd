@@ -1,0 +1,29 @@
+on: 
+  workflow_call
+
+name: 🔎 Check branch name
+
+env:
+  VALID_BRANCH_PREFIXES: "fix/,feat/,chore/,hotfix/,release/,refactor/,style/,test/,breaking/"
+
+jobs:
+  build:
+    name: 🔎 Check branch name
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v8
+      - name: Control branch name
+        run: |
+          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
+          IFS=',' read -r -a VALID_BRANCH_PREFIXES <<< "${{ env.VALID_BRANCH_PREFIXES }}"
+          BRANCH_NAME="${{ steps.branch-name.outputs.current_branch }}"
+          for PREFIX in "${VALID_BRANCH_PREFIXES[@]}"; do
+            if [[ "$BRANCH_NAME" == "$PREFIX"* ]]; then
+              echo "✅ [OK] - Branch name is correct"
+              exit 0
+            fi
+          done
+          echo "❌ [FAIL] - Branch name is not correct"
+          exit 1
