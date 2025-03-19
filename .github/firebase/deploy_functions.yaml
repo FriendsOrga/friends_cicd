@@ -1,0 +1,32 @@
+name: Deploy Firebase Functions
+
+inputs:
+  FIREBASE_TOKEN:
+    description: 'The Firebase token'
+    required: true
+    type: string
+  FUNCTIONS_DIR:
+    description: 'The directory where the functions are located'
+    required: true
+    type: string
+  FIREBASE_PROJECT:
+    description: 'The Firebase project ID'
+    required: true
+    type: string
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jsryudev/deploy-firebase-functions@v20.0.1
+        env:
+          FIREBASE_TOKEN: ${{ inputs.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: ${{ inputs.FIREBASE_PROJECT }}
+          FUNCTIONS_DIR: ${{ inputs.FUNCTIONS_DIR }}
