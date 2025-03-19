@@ -1,9 +1,9 @@
-on: 
+on:
   workflow_call:
     secrets:
       GITHUB_TOKEN_USER:
         required: true
-    
+
 name: 🏷️ Add or update labels to PRs
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      LABEL: ""
+      LABEL: ''
 
     permissions:
       packages: write
@@ -23,6 +23,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Check branch name and determine label
         run: |
           PR_URL="${{ github.event.pull_request.html_url }}"
@@ -53,7 +54,7 @@ jobs:
         id: set-label
 
       - name: 🏷️ Add or Update Label
-        run: | 
+        run: |
           gh pr edit ${{ github.event.pull_request.number }} --add-label "${{ env.LABEL }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN_USER }}

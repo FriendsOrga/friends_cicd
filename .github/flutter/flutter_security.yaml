@@ -1,4 +1,4 @@
-on: 
+on:
   workflow_call:
     inputs:
       FLUTTER_VERSION:
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -24,7 +24,7 @@ jobs:
           flutter-version: ${{ inputs.FLUTTER_VERSION }}
 
       - name: Show Flutter Version
-        run: flutter --version    
+        run: flutter --version
 
       - name: Install Dependencies
         run: flutter pub get

@@ -32,5 +32,5 @@ jobs:
         with:
           api_key: ${{ secrets.APP_STORE_API_KEY }}
           api_issuer: ${{ secrets.APP_STORE_API_ISSUER }}
-          app_identifier: com.example.app
+          app_identifier: ${{ secrets.APP_STORE_APP_IDENTIFIER }}
           ipa_path: build/ios/ipa/app.ipa
