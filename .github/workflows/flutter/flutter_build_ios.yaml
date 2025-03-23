@@ -31,4 +31,4 @@ jobs:
 
       - name: Build for IOS
         run: |
-          flutter build ios --release --no-codesign
+          flutter build appbundle
