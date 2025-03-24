@@ -28,7 +28,7 @@ jobs:
         run: flutter build web
 
       - name: Deploy to Firebase Hosting
-        uses: w9jds/firebase-action@v1
+        uses: w9jds/firebase-action@v13.35.1
         with:
           args: deploy --only hosting
           token: ${{ secrets.FIREBASE_TOKEN }}
