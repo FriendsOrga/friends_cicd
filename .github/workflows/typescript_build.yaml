@@ -1,6 +1,7 @@
-name: 🎯 TypeScript tests
+name: 🎯 TypeScript build
 
-on: [push, pull_request]
+on:
+  workflow_call:
 
 jobs:
   build:
@@ -18,5 +19,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
+      - name: Build
+        run: npm run build

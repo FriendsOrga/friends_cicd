@@ -7,7 +7,7 @@ on:
         type: string
         default: '17'
 
-name: 🍃 Kotlin CICD
+name: 🍃 Maven CICD
 
 jobs:
   build:
