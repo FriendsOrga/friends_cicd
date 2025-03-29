@@ -2,7 +2,11 @@ name: 🎯 TypeScript build
 
 on:
   workflow_call:
-
+    inputs:
+      working-directory:
+        description: "Répertoire de travail pour exécuter les commandes"
+        required: true
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,6 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Build
         run: npm run build
+        working-directory: ${{ inputs.working-directory }}

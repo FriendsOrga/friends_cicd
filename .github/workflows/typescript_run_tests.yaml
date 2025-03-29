@@ -2,7 +2,11 @@ name: 🎯 TypeScript tests
 
 on:
   workflow_call:
-
+    inputs:
+      working-directory:
+        description: "Répertoire de travail pour exécuter les commandes"
+        required: true
+        type: string
 
 jobs:
   build:
@@ -19,6 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Run tests
         run: npm test
+        working-directory: ${{ inputs.working-directory }}

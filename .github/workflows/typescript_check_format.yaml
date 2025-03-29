@@ -1,6 +1,12 @@
 name: 🎯 TypeScript linter
 
-on: [push, pull_request]
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Répertoire de travail pour exécuter les commandes"
+        required: true
+        type: string
 
 jobs:
   build:
@@ -17,6 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Run ESLint
         run: npm run lint
+        working-directory: ${{ inputs.working-directory }}
