@@ -1,11 +1,16 @@
 on:
   workflow_call:
     inputs:
-      JAVA_VERSION:
+      java-version:
         description: 'Java version'
         required: true
         type: string
         default: '17'
+      working-directory:
+        description: 'Working Directory'
+        required: true
+        type: string
+        default: '.'
 
 name: 🍃 Maven CICD
 
@@ -22,12 +27,13 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: ${{ inputs.JAVA_VERSION }}
+          java-version: ${{ inputs.java-version }}
+          cache: 'maven'
 
       - name: Build with Maven
-        run: |
-          ./mvnw clean install
+        run: ./mvnw clean install
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Run Tests
-        run: |
-          ./mvnw test
+        run: ./mvnw test
+        working-directory: ${{ inputs.working-directory }}

@@ -50,6 +50,8 @@ This GitHub repository contains a set of GitHub Actions for automating various p
 
 1. **Deploy Functions**: This action deploys the Firebase functions.
 
+2. **Deploy Hosting**: This action deploys the Firebase hosting.
+
 ## How to Use These Actions
 
 1. To use any of these actions, refer to the corresponding YAML file in the `.github/workflows` directory.

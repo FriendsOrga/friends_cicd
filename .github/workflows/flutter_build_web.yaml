@@ -4,9 +4,18 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      flutter-version:
+        description: 'Flutter Version'
+        required: true
+        type: string
+        default: '3.22.3'
+      working-directory:
+        description: 'Working Directory'
+        required: true
+        type: string
+        default: '.'
 
 jobs:
   build:
@@ -18,17 +27,21 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.3'
+          flutter-version: ${{ inputs.flutter-version }}
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Analyze code
         run: flutter analyze
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Run tests
         run: flutter test
+        working-directory: ${{ inputs.working-directory }}
 
       - name: Build for Web
         run: |
           flutter build web
+        working-directory: ${{ inputs.working-directory }}
