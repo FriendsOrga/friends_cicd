@@ -6,7 +6,7 @@ name: 🔎 Change log check
 jobs:
   build:
     name: 🔎 Change log check
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: ":material-eye-check: Check changelog has been updated"
